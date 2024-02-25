@@ -62,7 +62,7 @@ public class BrowserNavigation extends BaseTest {
         WebElement cookieBlock = driver.findElement(By.className("cookie_wrapper"));
         Assert.assertTrue(cookieBlock.isDisplayed(),"Cookie block is not displayed");
 
-        Assert.assertFalse(cookieBlock.isDisplayed(),"Cookie block is displayed");
+        Assert.assertFalse(cookieBlock.isDisplayed(),"Cookie blocks ir redzams");
 
     }
 

@@ -15,7 +15,6 @@ public class MansOtraisSelenium extends BaseTest {
         WebElement loginButton = driver.findElement(By.className("btn-primary"));
 
         loginEmailInput.sendKeys(email);
-        Thread.sleep(2500);
         loginPasswordlInput.sendKeys(password);
         loginButton.click();
 
@@ -32,7 +31,7 @@ public class MansOtraisSelenium extends BaseTest {
 
     @Test
     public void wrongCredentioalsLoginTest() throws InterruptedException {
-        attemptToLogIn("wrong@gmail.com","whatitis2#");
+        attemptToLogIn("wrong@gmail.com","whasaukegthj23");
         WebElement emailFieldError = driver.findElement(By.className("invalid-feedback"));
         Assert.assertEquals(emailFieldError.getText(),"These credentials do not match our records.");
 
