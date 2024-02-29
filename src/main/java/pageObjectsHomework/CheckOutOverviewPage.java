@@ -12,6 +12,7 @@ public class CheckOutOverviewPage {
     public static WebElement checkoutShirt;
     @FindBy(id="finish")
     public static WebElement finishButton;
+    //
 
 
     public CheckOutOverviewPage(WebDriver driver) {

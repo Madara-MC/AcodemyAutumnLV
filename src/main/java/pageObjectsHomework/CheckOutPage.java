@@ -22,7 +22,7 @@ public class CheckOutPage {
 
     @FindBy(xpath="//*[@class='error-message-container error']/h3")
             //*[@class='error-message-container error']/h3")
-    //*[@id='checkout_info_container']/div/form/div[1]/div[4]/h3/text()
+    //*[@id='checkout_info_container']/div/form/div[1]/div[4]/h3/text()"
     public static WebElement firstNameErrorMessage;
 
 

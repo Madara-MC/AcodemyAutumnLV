@@ -12,6 +12,7 @@ public class InventoryPage {
     public static WebElement addShirtButton;
     @FindBy(id="shopping_cart_container")
     public static WebElement goToCart;
+    //
 
     public InventoryPage(WebDriver driver) {
         this.driver = driver;

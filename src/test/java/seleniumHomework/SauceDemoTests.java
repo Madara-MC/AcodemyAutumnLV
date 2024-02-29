@@ -1,23 +1,28 @@
 package seleniumHomework;
 
-import org.openqa.selenium.By;
+import lekcijaSesi.pageObjects.pageObjects1a.OneLandingPage;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pageObjectsHomework.LoginPage;
+import pageObjectsHomework.*;
 
 
-import java.net.URL;
 import java.time.Duration;
 
+import static pageObjectsHomework.CartPage.checkoutButton;
+import static pageObjectsHomework.CheckOutOverviewPage.finishButton;
+import static pageObjectsHomework.CheckOutPage.*;
+import static pageObjectsHomework.CheckOutSuccessPage.backHome;
+import static pageObjectsHomework.InventoryPage.addShirtButton;
+import static pageObjectsHomework.InventoryPage.goToCart;
+import static pageObjectsHomework.LoginPage.*;
 
 
 public class SauceDemoTests {
-    protected WebDriver driver;
+     WebDriver driver;
 
     @BeforeMethod  //vienmer metode izsauksies pirms katra testa
     public void setUpBrowser(){
@@ -34,18 +39,39 @@ public class SauceDemoTests {
 
     @Test
     public void firstScenario () throws InterruptedException {
-        WebElement sauceUsername = driver.findElement(By.id("user-name"));
-        WebElement saucePassword = driver.findElement(By.id("password"));
-        WebElement loginButton = driver.findElement(By.id("login-button"));
-        sauceUsername.sendKeys("standard_user");
-        saucePassword.sendKeys("secret_sauce");
-        loginButton.click();
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.sauceLogIn();
         Assert.assertEquals(driver.getCurrentUrl(),"https://www.saucedemo.com/inventory.html","wrong page URL");
-        WebElement addShirtButton = driver.findElement(By.id("add-to-cart-sauce-labs-bolt-t-shirt"));
+        InventoryPage inventoryPage = new InventoryPage(driver);
         addShirtButton.click();
-        WebElement goToCart = driver.findElement(By.id("shopping_cart_container"));
         goToCart.click();
-        Thread.sleep(2500);
+        CartPage cartPage = new CartPage(driver);
+        Assert.assertTrue(cartPage.boltShirt.isDisplayed(),"Bolt shirt is not in the cart!");
+        checkoutButton.click();
+        CheckOutPage checkOutPage = new CheckOutPage(driver);
+        checkOutPage.fillCheckOut();
+        Assert.assertTrue(cartPage.boltShirt.isDisplayed(),"Bolt shirt is not in the overview page!");
+        CheckOutOverviewPage checkOutOverviewPage = new CheckOutOverviewPage(driver);
+        Assert.assertTrue(checkOutOverviewPage.checkoutShirt.isDisplayed(), "Item total is incorrect");
+        finishButton.click();
+        CheckOutSuccessPage checkOutSuccessPage = new CheckOutSuccessPage(driver);
+        Assert.assertTrue(checkOutSuccessPage.orderComplete.isDisplayed(),"Order not succesfull!");
+        backHome.click();
+        Assert.assertEquals(driver.getCurrentUrl(),"https://www.saucedemo.com/inventory.html","you are at the wrong page");
+        Thread.sleep(5000);
+    }
+    @Test
+    public void secondScenario () throws InterruptedException {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.sauceLogIn();
+        InventoryPage inventoryPage = new InventoryPage(driver);
+        goToCart.click();
+        CartPage cartPage = new CartPage(driver);
+        checkoutButton.click();
+        CheckOutPage checkOutPage = new CheckOutPage(driver);
+        continueButton.click();
+        Assert.assertEquals(checkOutPage.firstNameErrorMessage.getAttribute("error"),"Error: First name is required.");
+
     }
 
 }
