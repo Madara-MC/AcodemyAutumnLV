@@ -5,19 +5,19 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class InventoryPage {
-
+public class CheckOutOverviewPage {
     WebDriver driver;
-    @FindBy(id="add-to-cart-sauce-labs-bolt-t-shirt")
-    public static WebElement addShirtButton;
-    @FindBy(id="shopping_cart_container")
-    public static WebElement goToCart;
 
-    public InventoryPage(WebDriver driver) {
+    @FindBy(xpath = "//div[@class='summary_subtotal_label' and text()='15.99']")
+    public static WebElement checkoutShirt;
+    @FindBy(id="finish")
+    public static WebElement finishButton;
+
+
+    public CheckOutOverviewPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
-
 
 
 }
