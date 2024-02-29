@@ -1,6 +1,7 @@
 package seleniumHomework;
 
 import lekcijaSesi.pageObjects.pageObjects1a.OneLandingPage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -70,7 +71,19 @@ public class SauceDemoTests {
         checkoutButton.click();
         CheckOutPage checkOutPage = new CheckOutPage(driver);
         continueButton.click();
-        Assert.assertEquals(checkOutPage.firstNameErrorMessage.getAttribute("error"),"Error: First name is required.");
+        String nameCorrect = errorMessage.getText();
+        String expectName = "Error: First Name is required";
+        Assert.assertEquals(nameCorrect,expectName);
+        firstName.sendKeys("Liene");
+        continueButton.click();
+        String lastCorrect = errorMessage.getText();
+        String expectLast = "Error: Last Name is required";
+        Assert.assertEquals(lastCorrect,expectLast);
+        lastName.sendKeys("Upe");
+        continueButton.click();
+        String postCorrect = errorMessage.getText();
+        String expectPost = "Error: Postal Code is required";
+        Assert.assertEquals(postCorrect,expectPost);
 
     }
 
